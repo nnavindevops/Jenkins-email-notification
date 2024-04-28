@@ -1,3 +1,50 @@
+################################
+Email Notifications In Jenkins
+################################
+
+-> We can configure Email notifications in Jenkins
+
+-> With this option we can send email notification to team members after jenkins job execution completed
+
+-> We need to configure SMTP properties to send emails
+
+-> Go To Manage Jenkins 
+-> Go To System
+-> Add Email Extension Server
+-> We will add company provided SMTP server details to send emails.
+
+Note: For practise we can use GMAIL SMTP Properties
+
+SMTP Server : smtp.gmail.com
+SMTP Port : 465
+
+Note: Under Advanced section add your gmail account credential for authentication purpose.
+
+
+DL : sbiteam@tcs.com
+
+
+======================================
+Scripted Pipeline Email Notification 
+=======================================
+
+
+node {
+   stage('Demo'){
+       echo 'Hello world'
+   }
+   
+   // send to email
+  emailext (
+      subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+      body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+        <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
+      to: 'ashokitschool@gmail.com',
+      attachLog: true
+    )
+}
+
+
 ==========================================
 Declarative Pipeline Email Notification 
 ==========================================
